@@ -1,0 +1,145 @@
+{
+	"name": "bluehawk-wrapper",
+	"displayName": "Bluehawk Wrapper",
+	"description": "Wrap code selection with Bluehawk commands",
+	"version": "0.0.1",
+	"publisher": "MongoCaleb",
+	"engines": {
+		"vscode": "^1.18.0"
+	},
+	"categories": [
+		"Formatters",
+		"Keymaps",
+		"Other"
+	],
+	"keywords": [
+		"wrap",
+		"selection",
+		"console"
+	],
+	"galleryBanner": {
+		"color": "#88ddFF",
+		"theme": "light"
+	},
+	"activationEvents": [
+		"onCommand:wrapSelection",
+		"onCommand:wrapSelection.code-block",
+		"onCommand:wrapSelection.replace-block",
+		"onCommand:wrapSelection.hide-block"
+	],
+	"main": "out/extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "wrapSelection",
+				"title": "Wrap selected text"
+			},
+			{
+				"command": "wrapSelection.code-block",
+				"title": "Wrap selected text in a Bluehawk code-block"
+			},
+			{
+				"command": "wrapSelection.replace-block",
+				"title": "Wrap selected text in a Bluehawk replace-block"
+			},
+			{
+				"command": "wrapSelection.hide-block",
+				"title": "Wrap selected text in a Bluehawk hide-block"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorTextFocus",
+					"command": "wrapSelection",
+					"group": "wrapSelection"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "wrapSelection.code-block",
+				"key": "'",
+				"mac": "'",
+				"when": "editorTextFocus && editorHasSelection"
+			},
+			{
+				"command": "wrapSelection.replace-block",
+				"key": "`",
+				"mac": "`",
+				"when": "editorTextFocus && editorHasSelection"
+			},
+			{
+				"command": "wrapSelection.hide-block",
+				"key": "shift+'",
+				"mac": "shift+'",
+				"when": "editorTextFocus && editorHasSelection"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Bluehawk templates",
+			"properties": {
+				"wrapSelection.patterns": {
+					"type": "object"
+				}
+			}
+		}
+	},
+	"jest": {
+		"coverageDirectory": "<rootDir>/coverage",
+		"coverageReporters": [
+			"html"
+		],
+		"coverageThreshold": {
+			"global": {
+				"branches": 100,
+				"functions": 100,
+				"lines": 100,
+				"statements": 100
+			}
+		},
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		],
+		"moduleNameMapper": {
+			"vscode": "<rootDir>/src/__tests__/mocks/vscode.ts"
+		},
+		"transform": {
+			"^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
+		},
+		"testMatch": [
+			"**/__tests__/*.(ts|tsx)"
+		]
+	},
+	"scripts": {
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext .ts",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"precommit": "run-s lint test",
+		"test": "jest --coverage",
+		"vscode:prepublish": "npm run compile",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^7.0.43",
+		"@typescript-eslint/eslint-plugin": "^2.17.0",
+		"@typescript-eslint/parser": "^2.17.0",
+		"eslint": "^6.8.0",
+		"eslint-config-prettier": "^6.10.1",
+		"eslint-plugin-prettier": "^3.1.2",
+		"husky": "^0.14.3",
+		"jest": "^25.2.7",
+		"npm-run-all": "^4.1.2",
+		"prettier": "^2.0.4",
+		"typescript": "^3.8.3",
+		"vscode": "^1.1.33"
+	},
+	"repository": {
+		"url": "https://github.com/MongoCaleb/bluewrap.git"
+	},
+	"license": "MIT"
+}
